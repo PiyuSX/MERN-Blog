@@ -1,3 +1,25 @@
 @import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+	:root {
+		--primary-colour: #5FB0E6;
+		--primary-hover-colour: #387ca0;
+		--text-colour: #000000;
+		--text-muted-colour: #4b5563;
+		--hover-bg-colour: #ede9fe;
+		--border-colour: #e5e7eb;
+		--bg-colour: #ffffff; 
+	}
+
+	.dark {
+		--primary-colour: #5FB0E6;
+		--primary-hover-colour: #387ca0;
+		--text-colour: #e5e7eb;
+		--text-muted-colour: #cbd5f5;
+		--hover-bg-colour: rgba(255, 255, 255, 0.08);
+		--border-colour: rgba(255, 255, 255, 0.08);
+		--bg-colour: #05010f; 
+	}
+}
