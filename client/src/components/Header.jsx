@@ -68,10 +68,10 @@ const Header = () => {
               />
             )}
             <Link
-              to="/signup"
+              to="/signin"
               className="flex items-center bg-[var(--primary-colour)] hover:bg-[var(--primary-hover-colour)] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300 shadow-sm"
             >
-              <UserPlus className="h-5 w-5 mr-1" /> Sign Up
+              <UserPlus className="h-5 w-5 mr-1" /> Sign In
             </Link>
           </div>
 
@@ -128,10 +128,10 @@ const Header = () => {
             {/* Auth Buttons - Mobile */}
             <div className="flex flex-col space-y-2 mt-3 pt-3 border-t border-[var(--border-colour)]">
               <Link
-                to="/signup"
+                to="/signin"
                 className="flex items-center justify-center bg-[var(--primary-colour)] hover:bg-[var(--primary-hover-colour)] text-white px-4 py-2 rounded-lg text-base font-medium transition-colors duration-300 shadow-md"
               >
-                <UserPlus className="h-5 w-5 mr-2" /> Sign Up
+                <UserPlus className="h-5 w-5 mr-2" /> Sign In
               </Link>
             </div>
           </div>

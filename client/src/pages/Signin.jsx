@@ -5,11 +5,14 @@ import { useForm } from "react-hook-form"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import useUserStore  from "../store/userStore.js"
+import { useNavigate } from 'react-router-dom'
+import OAuth from '../components/OAuth'
 
 
 const Signin = () => {
   const { isDarkMode } = useThemeStore();
   const { setUser } = useUserStore();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -29,6 +32,7 @@ const Signin = () => {
       toast.success(res.data.message)
       setUser(res.data.user)
       reset()
+      navigate('/')
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong")
     }
@@ -72,6 +76,7 @@ const Signin = () => {
             {isSubmitting ? "Signing in..." : "Signin"}
           </button>
         </form>
+        <OAuth />
 
         <p className="mt-4 text-[var(--text-colour)] w-full">
           New here?{" "}

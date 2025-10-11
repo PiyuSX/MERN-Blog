@@ -15,7 +15,12 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: true
+        },
+        imgURL: {
+            type: String,
+            default: "https://static.vecteezy.com/system/resources/previews/046/010/545/non_2x/user-icon-simple-design-free-vector.jpg"
         }
+        
     }, {timestamps: true}
 )
 
