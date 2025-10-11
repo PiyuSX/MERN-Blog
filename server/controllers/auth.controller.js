@@ -11,6 +11,11 @@ export const signup = async (req, res)=> {
         if(!username || !email || !password) {
             return res.status(400).json({message: "All fields are required"})
         }
+    const existingUsername = await User.findOne({username})
+    if(existingUsername) {
+        return res.status(400).json({message: "Username already taken"})
+    }
+    
     const existingUser = await User.findOne({email})
     if(existingUser) {
         return res.status(400).json({message: "User already exists"})
@@ -29,6 +34,8 @@ export const signup = async (req, res)=> {
     }
 } 
 
+
+//Login a user
 
 export const signin = async (req, res)=> {
     const { email, password } = req.body
