@@ -28,3 +28,35 @@ export const signup = async (req, res)=> {
         res.status(500).json({message: "Internal server error"})
     }
 } 
+
+
+export const signin = async (req, res)=> {
+    const { email, password } = req.body
+    try {
+        if(!email || !password) {
+           return res.status(400).json({message: "All fields are required"})
+        }
+        const validUser = await User.findOne({ email })
+        if(!validUser) {
+            return res.status(400).json({ message: "Invalid credentials"})
+        }
+        const isPasswordValid = await bcrypt.compare(password, validUser.password)
+        if(!isPasswordValid) {
+            return res.status(400).json({ message: "Invalid credentials"})
+        }
+        const token = jwt.sign({ id: validUser._id,}, process.env.JWT_SECRET, {expiresIn: '1d'})
+        
+        const { password: userPassword, ...userData } = validUser.toObject()
+
+        res.status(200).cookie('access_token', token, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000, 
+        }).json(
+            { message: "Login successful",  user: userData}
+        )
+        
+
+    } catch (error) {
+        res.status(500).json({message: "Internal server error"})
+    }
+}

@@ -4,9 +4,11 @@ import useThemeStore from "../store/themeStore"
 import { useForm } from "react-hook-form"
 import axios from "axios"
 import { toast } from "react-hot-toast"
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
   const { isDarkMode } = useThemeStore();
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -22,6 +24,7 @@ const Signup = () => {
                 }
                 
             })
+            navigate('/signin')
             toast.success(res.data.message)
             reset() 
         } catch (error) {
@@ -91,11 +94,12 @@ const Signup = () => {
           </label>
 
           <button
+            disabled={isSubmitting}
             type="submit"
             className="bg-[var(--primary-colour)] text-[var(--bg-colour)] p-2 rounded hover:bg-[var(--primary-hover-colour)] transition w-full"
           >
             {
-                isSubmitting ? 'Submitting...' : 'Sign Up'
+                isSubmitting ? 'Signing up...' : 'Sign Up'
             }
           </button>
         </form>

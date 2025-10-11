@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Github, Instagram, Globe } from "lucide-react";
 
 const Footer = () => {
-  const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-[var(--border-colour)] bg-[var(--bg-colour)] text-[var(--text-colour)] py-6">
@@ -87,7 +86,8 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="border-t border-[var(--border-colour)] mt-6 pt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-          © {year} Piyush Rajbanshi. All rights reserved.
+          Made with ❤️ by{" "}
+          <a className="hover:text-[var(--primary-colour)]" href="https://jrpiyush.me" target="_blank"  rel="noopener noreferrer">Piyush Rajbanshi</a>
         </div>
       </div>
     </footer>
