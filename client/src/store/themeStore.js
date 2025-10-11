@@ -9,7 +9,6 @@ const useThemeStore = create(
     }),
     {
       name: "theme-storage", // key in storage
-      getStorage: () => sessionStorage, // can also be localStorage 
     }
   )
 );

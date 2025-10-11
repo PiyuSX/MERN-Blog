@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
-import Highlighter from "../components/Highlighter";
-import useThemeStore from "../store/themeStore";
+import { Link } from "react-router-dom"
+import Highlighter from "../components/Highlighter"
+import useThemeStore from "../store/themeStore"
 import { useForm } from "react-hook-form"
 import axios from "axios"
 import { toast } from "react-hot-toast"
+import useUserStore  from "../store/userStore.js"
 
 
 const Signin = () => {
   const { isDarkMode } = useThemeStore();
+  const { setUser } = useUserStore();
 
   const {
     register,
@@ -25,6 +27,7 @@ const Signin = () => {
         withCredentials: true,
       })
       toast.success(res.data.message)
+      setUser(res.data.user)
       reset()
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong")
