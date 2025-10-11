@@ -23,3 +23,8 @@
 		--bg-colour: #05010f; 
 	}
 }
+
+
+::-webkit-scrollbar {
+    display: none;
+}
