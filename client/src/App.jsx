@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import useThemeStore from "./store/themeStore";
 import { Toaster } from 'react-hot-toast'
+import Protectedroute from "./components/Protectedroute";
 
 const App = () => {
   const { isDarkMode } = useThemeStore();
@@ -23,7 +24,9 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route element={<Protectedroute />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
           </Routes>
         <Footer />
       </div>
