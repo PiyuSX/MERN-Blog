@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
 import useThemeStore from "./store/themeStore";
 import { Toaster } from 'react-hot-toast'
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         <Footer />
       </div>
