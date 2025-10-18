@@ -1,14 +1,57 @@
+import { useEffect } from "react";
 import useUserStore from "../store/userStore";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const Dashprofile = () => {
-  const { user } = useUserStore();
+  const { user, setUser } = useUserStore();
+
+  const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      password: ""
+    }
+  });
+
+  // Reset form when user changes (optional)
+  useEffect(() => {
+    reset({ username: "", email: "", password: "" });
+  }, [user, reset]);
+
+  const onSubmit = async (data) => {
+    // Create a payload containing only fields that have a value
+    const payload = {};
+    if (data.username) payload.username = data.username;
+    if (data.email) payload.email = data.email;
+    if (data.password) payload.password = data.password;
+
+    if (Object.keys(payload).length === 0) {
+      toast.error("Please fill at least one field to update.");
+      return;
+    }
+
+    try {
+      const res = await axios.put(`/api/v1/user/update/${user._id}`, payload, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+      toast.success(res.data.message);
+      setUser(res.data.user);
+      reset({ username: "", email: "", password: "" }); // clear form after update
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
   return (
     <div className="flex flex-col items-center gap-4 min-h-[73vh] px-4 sm:px-10">
-      {/* Title */}
-      <h1 className="text-2xl font-bold text-center sm:text-left md:text-3xl">Profile</h1>
+      <h1 className="text-2xl font-bold text-center sm:text-left md:text-3xl">
+        Profile
+      </h1>
 
-      {/* Form */}
-      <form className="flex flex-col gap-6 items-center w-full max-w-md">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 items-center w-full max-w-md">
         {/* Profile Image */}
         <div className="w-32 sm:w-38">
           <img
@@ -21,24 +64,28 @@ const Dashprofile = () => {
         {/* Inputs */}
         <div className="w-full flex flex-col gap-4">
           <input
+            {...register("username")}
             className="my-2 border border-[var(--border-colour)] p-2 rounded bg-[var(--bg-colour)] text-[var(--text-colour)] placeholder-[var(--text-muted-colour)] w-full"
             type="text"
-            placeholder="Username"
-            value={user.username}
+            placeholder={user.username || "Username"}
           />
           <input
+            {...register("email")}
             className="my-2 border border-[var(--border-colour)] p-2 rounded bg-[var(--bg-colour)] text-[var(--text-colour)] placeholder-[var(--text-muted-colour)] w-full"
             type="text"
-            placeholder="Email"
-            value={user.email}
+            placeholder={user.email || "Email"}
           />
           <input
+            {...register("password")}
             className="my-2 border border-[var(--border-colour)] p-2 rounded bg-[var(--bg-colour)] text-[var(--text-colour)] placeholder-[var(--text-muted-colour)] w-full"
-            type="text"
+            type="password"
             placeholder="Password"
           />
-          <button className="bg-[var(--primary-colour)] text-[var(--bg-colour)] p-2 rounded hover:bg-[var(--primary-hover-colour)] transition w-full">
-            Update
+          <button
+            type="submit"
+            className="bg-[var(--primary-colour)] text-[var(--bg-colour)] p-2 rounded hover:bg-[var(--primary-hover-colour)] transition w-full"
+          >
+            {isSubmitting ? "Updating..." : "Update Profile"}
           </button>
         </div>
 
