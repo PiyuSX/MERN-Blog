@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Deleteuserpop from "./Deleteuserpop";
+import useSignout from "../hooks/useSignout.js";
 
 const Dashprofile = () => {
   const { user, setUser } = useUserStore();
   const [isDeletePopOpen, setIsDeletePopOpen] = useState(false)
+  const { signout } = useSignout();
 
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm({
     defaultValues: {
@@ -96,7 +98,7 @@ const Dashprofile = () => {
           <span onClick={() => setIsDeletePopOpen(true)} className="cursor-pointer hover:text-red-600 transition-colors">
             Delete Account
           </span>
-          <span className="cursor-pointer hover:text-red-600 transition-colors">
+          <span onClick={signout} className="cursor-pointer hover:text-red-600 transition-colors">
             Sign Out
           </span>
         </div>

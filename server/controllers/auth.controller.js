@@ -60,6 +60,7 @@ export const signin = async (req, res) => {
       .cookie("access_token", token, {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
+        path: '/',
       })
       .json({ message: "Login successful", user: userData });
   } catch (error) {
@@ -88,6 +89,7 @@ export const googleAuth = async (req, res) => {
         .cookie("access_token", token, {
           httpOnly: true,
           maxAge: 24 * 60 * 60 * 1000,
+          path: '/',
         })
         .json({ message: "Login successful", user: userData });
     } else {
@@ -115,6 +117,7 @@ export const googleAuth = async (req, res) => {
         .cookie("access_token", token, {
           httpOnly: true,
           maxAge: 24 * 60 * 60 * 1000,
+          path: '/',
         })
         .json({ message: "Account Created Successfully", user: userData });
     }

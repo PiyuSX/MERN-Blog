@@ -66,4 +66,16 @@ export const deleteUserProfile = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
-};
+}
+
+export const signoutUser = async (req, res) => {
+    try {
+        res.clearCookie("access_token", {
+            httpOnly: true,
+            path: '/',
+        })
+        return res.status(200).json({ message: "Signout successful" })
+    } catch (error) {
+        return res.status(500).json({ message: "Internal Server Error" })
+    }
+}

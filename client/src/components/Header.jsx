@@ -86,7 +86,7 @@ const Header = () => {
                 <UserPlus className="h-5 w-5 mr-1" /> Sign In
               </Link>
             )}
-            {isUserDropdownOpen && <Dropdown />}
+            {isUserDropdownOpen && <Dropdown setIsUserDropdownOpen={setIsUserDropdownOpen} />}
           </div>
 
           {/* Mobile Menu + Theme Toggle + Avatar */}
