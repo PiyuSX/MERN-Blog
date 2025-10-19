@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useUserStore from "../store/userStore";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import Deleteuserpop from "./Deleteuserpop";
 
 const Dashprofile = () => {
   const { user, setUser } = useUserStore();
+  const [isDeletePopOpen, setIsDeletePopOpen] = useState(false)
 
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm({
     defaultValues: {
@@ -88,10 +90,10 @@ const Dashprofile = () => {
             {isSubmitting ? "Updating..." : "Update Profile"}
           </button>
         </div>
-
+          
         {/* Delete / Sign Out */}
         <div className="flex flex-col sm:flex-row justify-between items-center w-full text-sm font-semibold text-red-500 mt-4 gap-2 sm:gap-0">
-          <span className="cursor-pointer hover:text-red-600 transition-colors">
+          <span onClick={() => setIsDeletePopOpen(true)} className="cursor-pointer hover:text-red-600 transition-colors">
             Delete Account
           </span>
           <span className="cursor-pointer hover:text-red-600 transition-colors">
@@ -99,6 +101,7 @@ const Dashprofile = () => {
           </span>
         </div>
       </form>
+      {isDeletePopOpen && <Deleteuserpop  setIsDeletePopOpen={setIsDeletePopOpen} />}
     </div>
   );
 };
